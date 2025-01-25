@@ -7,18 +7,14 @@ const Meals = ({ meal }) => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setImageSrc(meal.image.mobile); // Use mobile image for small screens
+        setImageSrc(meal.image.mobile);
       } else if (window.innerWidth < 1024) {
-        setImageSrc(meal.image.tablet); // Use tablet image for medium screens
+        setImageSrc(meal.image.tablet);
       } else {
-        setImageSrc(meal.image.desktop); // Use desktop image for large screens
+        setImageSrc(meal.image.desktop);
       }
     };
-
-    // Set initial image based on screen size
     handleResize();
-
-    // Add event listener for window resize
     window.addEventListener("resize", handleResize);
 
     // Cleanup event listener on component unmount
@@ -52,6 +48,13 @@ const Meals = ({ meal }) => {
 Meals.propTypes = {
   meal: PropTypes.shape({
     name: PropTypes.string,
+    category: PropTypes.string,
+    price: PropTypes.number,
+    image: PropTypes.shape({
+      tablet: PropTypes.string,
+      mobile: PropTypes.string,
+      desktop: PropTypes.string,
+    }),
   }),
 };
 
