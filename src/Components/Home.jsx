@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import Meals from "./Meals";
+import Cart from "./Cart";
 
 const Home = () => {
   const [meals, setMeal] = useState([]);
@@ -12,7 +13,7 @@ const Home = () => {
         if (!response.ok) {
           throw new Error("error fetching meals");
         }
-        const data = response.json();
+        const data = await response.json();
         setMeal(data);
       } catch (error) {
         console.log(error.message);
@@ -22,11 +23,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container-xl lg:container max-w-6xl mx-auto py-6">
-      <div className="grid grid-cols-1 md:grid-cols-70/30">
-        <div className="border border-blue-800">
-          <h1 className="text-3xl">Desserts</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="container-xl lg:container max-w-6xl mx-auto py-6 px-6">
+      <div className="grid grid-cols-1 md:grid-cols-70/30 grid-rows-[auto] gap-4">
+        <div className=" ">
+          <h1 className="text-3xl font-bold px-3 py-3">Desserts</h1>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {meals.length > 0 ? (
               meals.map((meal) => <Meals key={meal.id} meal={meal} />)
             ) : (
@@ -34,7 +35,7 @@ const Home = () => {
             )}
           </div>
         </div>
-        <div className="border border-red-700"></div>
+        <Cart />
       </div>
     </div>
   );
