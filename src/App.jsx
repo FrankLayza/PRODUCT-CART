@@ -1,6 +1,8 @@
+import Home from "./Components/Home";
+
 const App = () => {
   return ( 
-    <div>helloi</div>
+    <Home />
    );
 }
  
