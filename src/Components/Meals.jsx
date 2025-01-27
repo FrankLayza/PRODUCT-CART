@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
-const Meals = ({ meal }) => {
-  const [imageSrc, setImageSrc] = useState(meal.image.desktop); // Default to desktop image
-
+const Meals = ({ meal, addToCart }) => {
+  const [imageSrc, setImageSrc] = useState(meal.image.desktop);
+ 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -29,7 +29,10 @@ const Meals = ({ meal }) => {
           className="rounded-lg w-full h-auto"
           alt={meal.category}
         />
-        <button className="flex items-center justify-center absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-white border border-rose px-6 py-1 min-w-[170px] md:px-6 md:py-3 rounded-[60px] text-sm md:text-base -mb-4">
+        <button
+          onClick={() => addToCart(meal)}
+          className="flex items-center justify-center absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-white border border-rose px-6 py-3 min-w-[170px] md:px-6 md:py-3 rounded-[60px] text-sm md:text-base -mb-4"
+        >
           <FaCartPlus className="text-rose mr-2" />
           <span className="text-sm font-semibold leading-none">
             Add To Cart
@@ -56,6 +59,7 @@ Meals.propTypes = {
       desktop: PropTypes.string,
     }),
   }),
+  addToCart: PropTypes.func
 };
 
 export default Meals;
