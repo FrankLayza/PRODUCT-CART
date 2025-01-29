@@ -2,27 +2,45 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Meals from "./Meals";
 import Cart from "./Cart";
+import Order from "./Order";
 
 const Home = () => {
   const [meals, setMeal] = useState([]);
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState();
+  const [count, setCount] = useState(0);
+  const [order, setOrder] = useState(false);
+  // const [color, setColor] = useState(false)
 
-  const addToCart = (meal, total) => {
-    setCart((prev) => {
-      const existingMeal = prev.find((item) => item.id === meal.id);
+  const openOrder = () => setOrder(true);
+  const closeOrder = () => setOrder(false);
 
-      if (existingMeal) {
-        return prev.map((item) => {
-          item.id === meal.id ? { ...item, quantity: item.quantity + 1 } : item;
-        });
-      } else {
-        return [...prev, { ...meal, quantity: 1 }];
+  const addToCart = (meal) => {
+    setCart(
+      (prev) => {
+        const existingMeal = prev.find((item) => item.id === meal.id);
+
+        if (existingMeal) {
+          return prev.map((item) =>
+            item.id === meal.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          return [...prev, { ...meal, quantity: 1 }];
+        }
       }
-    });
-    setTotal((total) => total + 1);
-
+      // setColor((prev) => !prev)
+    );
+    setCount((total) => total + 1);
   };
+  useEffect(() => {
+    const totalPrice = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    setTotal(totalPrice);
+  }, [cart]);
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -57,8 +75,14 @@ const Home = () => {
             )}
           </div>
         </div>
-        <Cart cart={cart} total={total} />
+        <Cart cart={cart} total={total} count={count} open={openOrder} />
       </div>
+
+      {order && (
+        <div className=" fixed inset-0 flex justify-center items-center  ">
+          <Order close={closeOrder} />
+        </div>
+      )}
     </div>
   );
 };

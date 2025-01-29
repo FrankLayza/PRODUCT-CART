@@ -1,13 +1,12 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
+// import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-const Cart = ({ cart, total }) => {
-  // const [total, setTotal] = useState(0);
+const Cart = ({ cart, total, count, open }) => {
   return (
     <div className="bg-white rounded-md p-5 h-fit">
       <div className=" p-2 mx-auto">
         <h2 className="text-rose font-bold text-[20px] mb-4">
-          Your Cart ({total})
+          Your Cart ({count})
         </h2>
 
         {cart.length === 0 ? (
@@ -33,19 +32,23 @@ const Cart = ({ cart, total }) => {
                     <p className="text-[13px] text-rose-400 mt-1">
                       ${item.price}
                     </p>
-                    <hr className="bg-rose-500 mt-3 mb-4" />
                   </div>
                   <div>
-                    <AiOutlineClose className="mt-4 text-rose-500" />
+                    <button className="border border-rose-400 rounded-full flex justify-center items-center w-8 h-8 mt-2">
+                      <AiOutlineClose className="text-rose-500" />
+                    </button>
                   </div>
                 </div>
+                <hr className="bg-rose-500 mt-3 mb-4 w-[100%]" />
               </div>
             ))}
             <div className="flex justify-between items-center">
               <p>Order Total</p>
-              <p>$45</p>
+              <p className="text-rose-900 font-bold text-[20px]">${total}</p>
             </div>
-            <button className="bg-rose w-full rounded-full text-white py-3 my-4">Confirm Order</button>
+            <button onClick={open} className="bg-rose w-full rounded-full active:bg-rose-900 text-white py-3 my-4">
+              Confirm Order
+            </button>
           </>
         )}
       </div>
@@ -54,6 +57,10 @@ const Cart = ({ cart, total }) => {
 };
 
 Cart.propTypes = {
-  cart: PropTypes.any,
+  cart: PropTypes.array.isRequired,   
+  total: PropTypes.number,    
+  count: PropTypes.number.isRequired,  
+  open: PropTypes.func.isRequired,   
 };
+
 export default Cart;
