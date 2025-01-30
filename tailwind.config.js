@@ -7,7 +7,7 @@ export default {
         sans: ["Red Hat Text", "serif"],
       },
       gridTemplateColumns: {
-        "70/30": "70% 28%",
+        "70/30": "70% 30%",
       },
       colors: {
         rose: "hsl(14, 86%, 42%)",

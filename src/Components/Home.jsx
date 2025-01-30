@@ -10,8 +10,16 @@ const Home = () => {
   const [total, setTotal] = useState();
   const [count, setCount] = useState(0);
   const [order, setOrder] = useState(false);
-  // const [color, setColor] = useState(false)
 
+  const deleteMeal = (item) => {
+    setCart(cart.filter((meal) => meal.id !== item.id));
+    setCount((prev) => prev - 1);
+  };
+
+  const reset = () => {
+    setCart([]);
+    setCount(0);
+  };
   const openOrder = () => setOrder(true);
   const closeOrder = () => setOrder(false);
 
@@ -75,12 +83,18 @@ const Home = () => {
             )}
           </div>
         </div>
-        <Cart cart={cart} total={total} count={count} open={openOrder} />
+        <Cart
+          cart={cart}
+          total={total}
+          count={count}
+          open={openOrder}
+          deleteMeal={deleteMeal}
+        />
       </div>
 
       {order && (
         <div className=" fixed inset-0 flex justify-center items-center  ">
-          <Order close={closeOrder} />
+          <Order close={closeOrder} total={total} cart={cart} reset={reset} />
         </div>
       )}
     </div>

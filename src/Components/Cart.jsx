@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 // import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-const Cart = ({ cart, total, count, open }) => {
+const Cart = ({ cart, total, count, open, deleteMeal }) => {
   return (
     <div className="bg-white rounded-md p-5 h-fit">
       <div className=" p-2 mx-auto">
@@ -26,7 +26,7 @@ const Cart = ({ cart, total, count, open }) => {
               <div key={item.id}>
                 <div className="flex justify-between ">
                   <div>
-                    <p className="text-rose-900 font-bold text-[15px]">
+                    <p className="text-rose-900 font-bold text-[13px]">
                       {item.name}
                     </p>
                     <p className="text-[13px] text-rose-400 mt-1">
@@ -34,7 +34,7 @@ const Cart = ({ cart, total, count, open }) => {
                     </p>
                   </div>
                   <div>
-                    <button className="border border-rose-400 rounded-full flex justify-center items-center w-8 h-8 mt-2">
+                    <button onClick={() => {deleteMeal(item)} } className="border border-rose-400 rounded-full flex justify-center items-center w-4 h-4 mt-2">
                       <AiOutlineClose className="text-rose-500" />
                     </button>
                   </div>
@@ -46,7 +46,7 @@ const Cart = ({ cart, total, count, open }) => {
               <p>Order Total</p>
               <p className="text-rose-900 font-bold text-[20px]">${total}</p>
             </div>
-            <button onClick={open} className="bg-rose w-full rounded-full active:bg-rose-900 text-white py-3 my-4">
+            <button onClick={open} className="bg-rose w-full rounded-full text-[13px] font-semibold active:bg-rose-900 text-white py-2 my-4">
               Confirm Order
             </button>
           </>
